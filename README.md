@@ -48,6 +48,9 @@ sudo pacman -S xmonad xmonad-contrib xmobar dmenu
 # input method
 sudo pacman -S fcitx-im fcitx-configtool fcitx-skk skk-jisyo skktools
 
+# other
+sudo pacman feh thunderbird
+
 ln -s ~/.dotfiles/.xinitrc ~/.xinitrc
 ln -s ~/.dotfiles/.xmonad ~/.xmonad
 ln -s ~/.dotfiles/.Xdefaults ~/.Xdefaults
