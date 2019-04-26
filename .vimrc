@@ -175,3 +175,6 @@ if filereadable($HOME.'/.vimrc_local.vim')
 	source $HOME/.vimrc_local.vim
 endif
 
+if &compatible
+  set nocompatible
+endif

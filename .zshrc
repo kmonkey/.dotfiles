@@ -45,10 +45,10 @@ zstyle ':completion:*' list-colors ''
 case ${UID} in
 0)
 	# root
-	PROMPT="%B%{$fg[red]%}%m%{$fg[blue]%} %~ %{$fg[red]%}# %{$reset_color%}"
+	PROMPT="%B%{$fg[red]%}%m%{$fg[cyan]%} %~ %{$fg[red]%}# %{$reset_color%}"
 	;;
 *)
-	PROMPT="%B%{$fg[green]%}%n@%m%{$fg[blue]%} %~ $ %{$reset_color%}"
+	PROMPT="%B%{$fg[green]%}%n@%m%{$fg[cyan]%} %~ $ %{$reset_color%}"
 	;;
 esac
 
@@ -243,7 +243,7 @@ env_dev() {
     ;;
   esac
   PROMPT="
-$PROMPT %{${fg[blue]}%}%~%{${reset_color}%}
+$PROMPT %{${fg[cyan]}%}%~%{${reset_color}%}
 %(?.%{$fg[green]%}(*'-') <.%{$fg[red]%}(*;-;%)?<)%{${reset_color}%} "
   PROMPT2="       %(?.%{$fg[green]%}.%{$fg[red]%})<%{${reset_color}%} "
   SPROMPT="%{$fg[red]%}%{$suggest%}(*'~'%)?< もしかして? %B%r%b %{$fg[red]%} [nyae]:${reset_color} "

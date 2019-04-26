@@ -32,4 +32,7 @@ if type xscreensaver ; then
   xscreensaver -no-splash &
 fi
 
+# xranr
+xrandr --output HDMI2 --primary --output HDMI1 --right-of HDMI2
+
 exec xmonad

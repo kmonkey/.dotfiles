@@ -24,11 +24,12 @@ import XMonad.Util.Run(spawnPipe)
 
 myModMask = mod4Mask -- left super key
 myTerminal = "urxvt"
-myWorkspaces = ["term", "ide"] ++ map show [3..7] ++ ["web", "mail"]
+myWorkspaces = map show [1..6] ++ ["slack", "web", "mail","a-ide"]
 
 main :: IO ()
 main = do
-  xmproc <- spawnPipe "/usr/bin/xmobar"
+  xmproc <- spawnPipe "/usr/bin/xmobar ~/.xmobarrc.left"
+  spawn "/usr/bin/xmobar -x 1 ~/.xmobarrc.right"
   xmonad $ defaultConfig
     { terminal    = myTerminal
     , modMask     = myModMask
@@ -43,13 +44,16 @@ main = do
     }
 
 myManageHook = composeAll
-  [ className =? "Firefox" --> viewShift "web"
+  [ className =? "Google-chrome" --> viewShift "web"
+  , className =? "Slack" --> viewShift "slack"
   , className =? "Thunderbird" --> viewShift "mail"
+  , className =? "jetbrains-studio" --> viewShift "a-ide"
+  , className =? "Xmessage" --> doFloat
   , className =? "Xmessage" --> doFloat
   ]
   where viewShift = doF . liftM2 (.) W.view W.shift
 
-myLayout = spacing 8 $
+myLayout = spacing 16 $
   gaps [(U, 2), (D, 1), (L, 1), (R, 1)] $
     (ResizableTall 1 (1/55) (1/2) [])
   ||| Simplest
@@ -66,8 +70,10 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , (( modMask .|. controlMask,   xK_l      ), spawn "xscreensaver-command -lock")
   , (( modMask .|. shiftMask,     xK_c      ), kill)
 
-  , (( modMask,                   xK_b      ), runOrRaise "firefox" (className =? "Firefox"))
+  , (( modMask,                   xK_b      ), runOrRaise "google-chrome-stable" (className =? "Google-chrome"))
+  , (( modMask,                   xK_s      ), runOrRaise "slack" (className =? "Slack"))
   , (( modMask,                   xK_m      ), runOrRaise "thunderbird" (className =? "Thunderbird"))
+  , (( modMask,                   xK_a      ), runOrRaise "sun-awt-X11-XFramePeer" (className =? "jetbrains-studio"))
 
   , (( modMask,                   xK_space  ), sendMessage NextLayout)
   , (( modMask .|. shiftMask,     xK_space  ), setLayout $ XMonad.layoutHook conf)
@@ -117,11 +123,13 @@ help :: String
 help = unlines
   [ "key bindings"
   , ""
+  , "Mod-a              open android studio"
   , "Mod-Shift-Enter    launch terminal"
   , "Mod-p              launch dmenu"
   , "Mod-Control-l      lock screen"
   , "Mod-Shift-c        close window"
-  , "Mod-b              open firefox"
+  , "Mod-b              open google crhome"
+  , "Mod-s              open slack"
   , "Mod-m              open mailer"
   , ""
   , "Mod-Space          rotate layouts"
